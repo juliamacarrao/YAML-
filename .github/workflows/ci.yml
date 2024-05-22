@@ -1,0 +1,28 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Test python
+      run: |
+        python teste.py
+        echo "teste bem sucedido"
+
+    - name: Transform exe
+      run: |
+        pip install -U pyinstaller
+        pyinstaller --clean -y teste.py
+        echo "arquivo transformado em executavel com sucesso"
+  
